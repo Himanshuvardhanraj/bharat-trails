@@ -1,0 +1,146 @@
+<% layout('layout/boilerplate') %>
+<div class="container py-5">
+  <div class="row align-items-center mb-5">
+    <div class="col-lg-6">
+      <p class="eyebrow text-warning">BharatTrails</p>
+      <h1 class="display-5 fw-bold">Discover the Soul of India</h1>
+      <p class="lead text-muted">
+        Explore breathtaking destinations, hidden gems, and authentic travel experiences shared by explorers across the country.
+      </p>
+      <div class="mb-4">
+        <a class="btn btn-hero btn-lg me-3 mb-2" href="/campgrounds">View All Campgrounds</a>
+        <a class="btn btn-outline-hero btn-lg mb-2" href="/campgrounds/new">Share Your Journey</a>
+      </div>
+      <div class="search-card p-4 rounded-4 shadow-sm bg-white border">
+        <div class="mb-3 text-muted">Search by city, state, or destination...</div>
+        <form class="row g-2" action="/campgrounds" method="GET">
+          <div class="col-sm-8">
+            <input type="search" class="form-control" name="q" placeholder="Search by city, state, or destination..." aria-label="Search destinations" />
+          </div>
+          <div class="col-sm-4 d-grid">
+            <button class="btn btn-hero" type="submit">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-6 mt-4 mt-lg-0">
+      <div class="hero-image rounded-4 shadow-lg overflow-hidden" style="background-image: linear-gradient(180deg, rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.45)), url('https://images.unsplash.com/photo-1518684079-5e0c22072cda?auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; min-height: 480px;">
+        <div class="hero-image-text p-4 text-white">
+          <span class="badge bg-warning text-dark mb-3">Featured</span>
+          <h3 class="mb-2">Rajasthan, Kerala & Goa</h3>
+          <p class="mb-0">A premium collection of India’s most iconic and soulful journeys.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <p class="eyebrow text-warning mb-1">Featured destinations</p>
+        <h2 class="h3">Experience the best of India</h2>
+      </div>
+      <a href="/campgrounds" class="text-decoration-none text-warning">See all destinations</a>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card rounded-4 overflow-hidden shadow-sm">
+          <img src="https://images.unsplash.com/photo-1589004432133-2215b11b7565?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Rajasthan Forts" />
+          <div class="p-4 bg-white">
+            <h3>Rajasthan Forts</h3>
+            <p class="text-muted mb-0">Royal palaces, desert sunsets and majestic history.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card rounded-4 overflow-hidden shadow-sm">
+          <img src="https://images.unsplash.com/photo-1506960893569-828da4e6f40f?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Kerala Backwaters" />
+          <div class="p-4 bg-white">
+            <h3>Kerala Backwaters</h3>
+            <p class="text-muted mb-0">Serene houseboats, lush palms, and tranquil waters.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card rounded-4 overflow-hidden shadow-sm">
+          <img src="https://images.unsplash.com/photo-1545851038-2ec76d5ca2f5?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Goa Beaches" />
+          <div class="p-4 bg-white">
+            <h3>Goa Beaches</h3>
+            <p class="text-muted mb-0">Golden sands, sea breeze, and coastal leisure.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-5">
+    <div class="section-header text-center mb-4">
+      <p class="eyebrow text-warning mb-1">Categories</p>
+      <h2 class="h3">Travel styles for every explorer</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="category-card rounded-4 p-4 h-100 border">
+          <h5>Heritage</h5>
+          <p class="text-muted">Timeless journeys through culture and history.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="category-card rounded-4 p-4 h-100 border">
+          <h5>Nature</h5>
+          <p class="text-muted">Green escapes, mountains, and coastal serenity.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="category-card rounded-4 p-4 h-100 border">
+          <h5>Wellness</h5>
+          <p class="text-muted">Rejuvenating retreats for balance and calm.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="category-card rounded-4 p-4 h-100 border">
+          <h5>Adventure</h5>
+          <p class="text-muted">Active itineraries for thrill-seekers and explorers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/why-choose') %>
+
+  <section class="mb-5">
+    <div class="section-header text-center mb-4">
+      <p class="eyebrow text-warning mb-1">Traveler testimonials</p>
+      <h2 class="h3">What explorers love about BharatTrails</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="testimonial-card rounded-4 p-4 shadow-sm h-100 bg-white border">
+          <p>“BharatTrails helped us discover a side of India we never knew existed. Every stay and experience felt premium and personal.”</p>
+          <p class="text-muted mb-0"><strong>Priya S.</strong><br />Jaipur, Rajasthan</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial-card rounded-4 p-4 shadow-sm h-100 bg-white border">
+          <p>“The itinerary was seamless, and the hidden gems were breathtaking. The team made our family trip unforgettable.”</p>
+          <p class="text-muted mb-0"><strong>Aryan M.</strong><br />Kerala Backwaters</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial-card rounded-4 p-4 shadow-sm h-100 bg-white border">
+          <p>“From forts to beaches, every destination felt curated with care. The premium experience was exactly what we wanted.”</p>
+          <p class="text-muted mb-0"><strong>Meera K.</strong><br />Goa Coast</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-cta py-5 text-center rounded-4" style="background: linear-gradient(135deg, #f59e0b, #10b981);">
+    <div class="p-5 text-white">
+      <h2 class="mb-3">Ready to explore India like never before?</h2>
+      <p class="mb-4">Begin your journey with BharatTrails and unlock unforgettable travel adventures across the country.</p>
+      <a class="btn btn-dark btn-lg me-3 mb-2" href="/campgrounds">Explore Destinations</a>
+      <a class="btn btn-outline-light btn-lg mb-2" href="/campgrounds/new">Share Your Journey</a>
+    </div>
+  </section>
+</div>

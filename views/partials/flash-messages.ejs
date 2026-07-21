@@ -1,0 +1,62 @@
+<!-- Flash Messages with Premium Styling -->
+<div class="flash-messages-container">
+<% if (typeof success !== 'undefined' && success.length) { %>
+    <% success.forEach(msg => { %>
+      <div class="alert alert-premium alert-success alert-dismissible fade show" role="alert" data-type="success">
+        <div class="alert-content">
+          <i class="fas fa-check-circle alert-icon"></i>
+          <div class="alert-text">
+            <h5 class="alert-title">Success!</h5>
+            <p class="alert-message"><%= msg %></p>
+          </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% }); %>
+  <% } %>
+
+ <% if (typeof error !== 'undefined' && error.length) { %>
+    <% error.forEach(msg => { %>
+      <div class="alert alert-premium alert-danger alert-dismissible fade show" role="alert" data-type="error">
+        <div class="alert-content">
+          <i class="fas fa-exclamation-circle alert-icon"></i>
+          <div class="alert-text">
+            <h5 class="alert-title">Error!</h5>
+            <p class="alert-message"><%= msg %></p>
+          </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% }); %>
+  <% } %>
+
+<% if (typeof warning !== 'undefined' && warning.length) { %>
+    <% warning.forEach(msg => { %>
+      <div class="alert alert-premium alert-warning alert-dismissible fade show" role="alert" data-type="warning">
+        <div class="alert-content">
+          <i class="fas fa-exclamation-triangle alert-icon"></i>
+          <div class="alert-text">
+            <h5 class="alert-title">Warning!</h5>
+            <p class="alert-message"><%= msg %></p>
+          </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% }); %>
+  <% } %>
+
+  <% if (typeof info !== 'undefined' && info.length) { %>
+    <% info.forEach(msg => { %>
+      <div class="alert alert-premium alert-info alert-dismissible fade show" role="alert" data-type="info">
+        <div class="alert-content">
+          <i class="fas fa-info-circle alert-icon"></i>
+          <div class="alert-text">
+            <h5 class="alert-title">Info</h5>
+            <p class="alert-message"><%= msg %></p>
+          </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% }); %>
+  <% } %>
+</div>

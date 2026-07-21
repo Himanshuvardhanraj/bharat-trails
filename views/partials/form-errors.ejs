@@ -1,0 +1,10 @@
+<% if (errors && errors.length) { %>
+  <div class="alert alert-danger">
+    <h4 class="alert-heading">Please fix the following errors:</h4>
+    <ul class="mb-0">
+      <% for (let error of errors) { %>
+        <li><%= error %></li>
+      <% } %>
+    </ul>
+  </div>
+<% } %>
