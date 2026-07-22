@@ -1,0 +1,127 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container py-5">
+  <div class="row mb-5">
+    <div class="col-lg-8 mx-auto text-center">
+      <p class="eyebrow text-warning">AI Trip Planner</p>
+      <h1 class="display-6 fw-bold">Let AI Plan Your Perfect Indian Getaway</h1>
+      <p class="lead text-muted">
+        Tell us where you want to go and what you love — we'll generate a day-by-day itinerary in seconds.
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-5 mb-4">
+      <div class="p-4 rounded-4 shadow-sm bg-white border">
+        <form action="/trip-planner" method="POST">
+          <div class="mb-3">
+            <label class="form-label" for="destination">Destination</label>
+            <input
+              type="text"
+              class="form-control"
+              id="destination"
+              name="destination"
+              placeholder="e.g. Manali, Himachal Pradesh"
+              value="<%= formData.destination || '' %>"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="days">Number of Days</label>
+            <input
+              type="number"
+              class="form-control"
+              id="days"
+              name="days"
+              min="1"
+              max="30"
+              placeholder="e.g. 5"
+              value="<%= formData.days || '' %>"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="budget">Budget</label>
+            <select class="form-select" id="budget" name="budget">
+              <option value="budget" <%= formData.budget === 'budget' ? 'selected' : '' %>>Budget-friendly</option>
+              <option value="moderate" <%= formData.budget === 'moderate' ? 'selected' : '' %>>Moderate</option>
+              <option value="luxury" <%= formData.budget === 'luxury' ? 'selected' : '' %>>Luxury</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="interests">Interests</label>
+            <input
+              type="text"
+              class="form-control"
+              id="interests"
+              name="interests"
+              placeholder="e.g. trekking, local food, temples, photography"
+              value="<%= formData.interests || '' %>"
+            />
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="travelStyle">Travel Style</label>
+            <select class="form-select" id="travelStyle" name="travelStyle">
+              <option value="relaxed" <%= formData.travelStyle === 'relaxed' ? 'selected' : '' %>>Relaxed / slow travel</option>
+              <option value="balanced" <%= formData.travelStyle === 'balanced' ? 'selected' : '' %>>Balanced</option>
+              <option value="packed" <%= formData.travelStyle === 'packed' ? 'selected' : '' %>>Packed / see everything</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-hero w-100">
+            <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Generate My Itinerary
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-7">
+      <% if (errorMsg) { %>
+        <div class="alert alert-danger" role="alert"><%= errorMsg %></div>
+      <% } %>
+
+      <% if (!plan && !errorMsg) { %>
+        <div class="p-5 rounded-4 border bg-light text-center text-muted h-100 d-flex flex-column justify-content-center">
+          <i class="fa-solid fa-route fa-2x mb-3"></i>
+          <p class="mb-0">Your generated itinerary will appear here.</p>
+        </div>
+      <% } %>
+
+      <% if (plan) { %>
+        <div class="p-4 rounded-4 shadow-sm bg-white border">
+          <h2 class="h4 fw-bold mb-2"><%= plan.destination %></h2>
+          <p class="text-muted"><%= plan.summary %></p>
+
+          <div class="mt-4">
+            <% plan.days.forEach(function(day) { %>
+              <div class="mb-3 pb-3 border-bottom">
+                <h3 class="h6 fw-bold text-warning mb-2">Day <%= day.day %>: <%= day.title %></h3>
+                <ul class="mb-0">
+                  <% day.activities.forEach(function(activity) { %>
+                    <li><%= activity %></li>
+                  <% }); %>
+                </ul>
+              </div>
+            <% }); %>
+          </div>
+
+          <% if (plan.tips && plan.tips.length) { %>
+            <div class="mt-4">
+              <h3 class="h6 fw-bold mb-2"><i class="fa-solid fa-lightbulb text-warning me-1"></i>Travel Tips</h3>
+              <ul class="mb-0">
+                <% plan.tips.forEach(function(tip) { %>
+                  <li><%= tip %></li>
+                <% }); %>
+              </ul>
+            </div>
+          <% } %>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<% layout('layout/boilerplate') -%>
+<!-- <% layout('layout/boilerplate') -%>
 
     <h1>Campgrounds</h1>
     <div>
@@ -24,4 +24,61 @@
             </div>
         </div>
         <% }%>
+    </div> -->
+    <% layout('layout/boilerplate') -%>
+
+<div class="container py-5">
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 gap-3">
+    <div>
+      <p class="eyebrow text-warning mb-1">Explore India</p>
+      <h1 class="display-6 fw-bold mb-2">All Destinations</h1>
+      <p class="text-muted mb-0">Browse every destination shared by explorers across the country.</p>
     </div>
+    <a class="btn btn-hero btn-lg" href="/campgrounds/new">
+      <i class="fa-solid fa-plus me-2"></i>Create New Destination
+    </a>
+  </div>
+
+  <% if (campgrounds.length === 0) { %>
+    <div class="p-5 rounded-4 border bg-light text-center text-muted">
+      <i class="fa-solid fa-map-location-dot fa-2x mb-3"></i>
+      <p class="mb-3">No destinations have been added yet.</p>
+      <a class="btn btn-hero" href="/campgrounds/new">Add the first one</a>
+    </div>
+  <% } else { %>
+    <div class="row g-4">
+      <% for (let campground of campgrounds) { %>
+        <div class="col-md-6 col-lg-4">
+          <div class="feature-card rounded-4 overflow-hidden shadow-sm h-100 d-flex flex-column">
+            <div class="position-relative">
+              <img
+                src="<%= campground.image || 'https://images.unsplash.com/photo-1506461883276-594a12b11cf3?auto=format&fit=crop&w=800&q=80' %>"
+                class="img-fluid"
+                alt="<%= campground.title %>"
+              />
+              <% if (campground.price) { %>
+                <span class="badge bg-warning text-dark position-absolute top-0 end-0 m-3">
+                  ₹<%= campground.price %> / night
+                </span>
+              <% } %>
+            </div>
+            <div class="p-4 bg-white d-flex flex-column flex-grow-1">
+              <h3 class="h5 mb-1"><%= campground.title %></h3>
+              <p class="text-muted small mb-2">
+                <i class="fa-solid fa-location-dot me-1"></i><%= campground.location %>
+              </p>
+              <p class="text-muted mb-3 flex-grow-1">
+                <%= campground.description && campground.description.length > 110
+                    ? campground.description.slice(0, 110) + '…'
+                    : campground.description %>
+              </p>
+              <a class="btn btn-outline-hero mt-auto" href="/campgrounds/<%= campground._id %>">
+                View <%= campground.title %>
+              </a>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  <% } %>
+</div>

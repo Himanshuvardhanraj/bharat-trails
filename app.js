@@ -1,5 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
+const ExpressError = require('./utils/ExpressError');
 const path = require('path');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -33,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campground');
 const reviewRoutes = require('./routes/review');
-
+const tripPlannerRoutes = require('./routes/tripplanner');
 
 const sessionConfig = {
   secret: 'thisshouldbeabettersecret',
@@ -66,7 +68,7 @@ app.use((req, res, next) => {
 app.use('/', userRoutes);
 app.use('/campgrounds', campgroundRoutes);
 app.use('/campgrounds/:id/reviews', reviewRoutes);
-
+app.use('/trip-planner', tripPlannerRoutes);
 
 
 
@@ -78,7 +80,15 @@ app.get('/why-us', (req, res) => {
   res.render('why-us');
 });
 
+app.use((req, res, next) => {
+  next(new ExpressError('Page not found', 404));
+});
 
+app.use((err, req, res, next) => {
+  const { status = 500 } = err;
+  if (!err.message) err.message = 'Something went wrong on our end';
+  res.status(status).render('error', { err });
+});
 
 
 app.listen(3000, () => {

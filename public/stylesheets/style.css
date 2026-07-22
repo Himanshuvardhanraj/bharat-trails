@@ -2,8 +2,63 @@ body {
   min-height: 100vh;
   background-color: #f8fafc;
   color: #0f172a;
+  padding-top: 90px;
 }
 
+.site-navbar {
+  padding: 14px 0;
+  background: transparent;
+}
+
+.pill-navbar {
+  background: #0f172a;
+  border-radius: 999px;
+  padding: 10px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pill-navbar .brand-mark {
+  color: #f5b942;
+}
+
+.pill-navbar .brand-text {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.pill-navbar .brand-accent {
+  color: #f5b942;
+}
+
+.pill-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.95rem;
+  padding: 0.4rem 0.75rem;
+}
+
+.pill-navbar .nav-link:hover {
+  color: #ffffff;
+}
+
+.btn-pill-cta {
+  background: #ffffff;
+  color: #0f172a;
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-weight: 600;
+  border: none;
+}
+
+.btn-pill-cta:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+@media (max-width: 991.98px) {
+  .pill-navbar {
+    border-radius: 20px;
+  }
+}
 
 footer.footer {
   background-color: #f8f9fa;
@@ -91,6 +146,7 @@ footer.footer {
 }
 
 @media (max-width: 767.98px) {
+
   .why-stat-card,
   .why-feature-card,
   .why-cta {
@@ -227,6 +283,17 @@ footer.footer {
 
 .section-header p {
   color: rgba(255, 255, 255, 0.75);
+}
+
+.feature-card {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
 }
 
 .featured-card {
