@@ -14,14 +14,15 @@ const seedDB = async () => {
 
     for (const city of cities) {
         const destination = new Campground({
+            author: '6a5f3ed475b943c2821cc78d',
             title: city.title,
             location: `${city.city}, ${city.state}`,
             description: city.description,
             geometry: {
                 type: "Point",
                 coordinates: [city.longitude, city.latitude]
-            },
-            image: "/seeds/" + city.city.toLowerCase() + ".jpg",
+            }
+
         });
 
         await destination.save();

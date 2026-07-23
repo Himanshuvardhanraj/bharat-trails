@@ -1,8 +1,20 @@
 <% layout('layout/boilerplate') %>
+<link rel="stylesheet" href="/stylesheets/star.css" />
 
 <div class="row mb-4">
   <div class="col-md-10 mx-auto">
     <div class="card mb-4">
+ <% if (campground.images && campground.images.length) { %>
+   <% campground.images.forEach(function(img) { %>
+    <img src="<%= img.url %>" class="card-img-top" alt="<%= campground.title %>" />
+   <% }); %>
+<% } else { %>
+  <img
+    src="https://images.unsplash.com/photo-1506461883276-594a12b11cf3?auto=format&fit=crop&w=1200&q=80"
+    class="card-img-top"
+    alt="<%= campground.title %>"
+  />
+<% } %>
       <div class="card-body">
         <h2 class="card-title"><%= campground.title %></h2>
         <p class="card-text"><%= campground.description %></p>
@@ -11,15 +23,20 @@
             <p class="mb-1"><strong>Location:</strong> <%= campground.location %></p>
           </div>
           <div class="col-sm-6">
+            <p class="mb-1"><strong>submitted by</strong> <%= campground.author.username %></p>
+          </div>
+          <div class="col-sm-6">
             <p class="mb-1"><strong>Price:</strong> $<%= campground.price %></p>
           </div>
         </div>
+        <%if (currentUser && currentUser._id.equals(campground.author._id)) { %>
         <div class="mt-3">
           <a class="btn btn-info me-2" href="/campgrounds/<%= campground._id %>/edit">Edit Campground</a>
           <form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
             <button type="submit" class="btn btn-danger">Delete Campground</button>
           </form>
         </div>
+        <% } %>
       </div>
       <div class="card-footer text-muted">
         <a href="/campgrounds">All Campgrounds</a>
@@ -56,9 +73,11 @@
           </div>
           <div class="card-body">
             <p class="card-text"><%= review.body %></p>
+            <% if (currentUser && review.authorId && review.authorId.equals(currentUser._id)) { %>
             <form action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="d-inline">
               <button type="submit" class="btn btn-sm btn-outline-danger">Delete Review</button>
             </form>
+              <% } %>
           </div>
         </div>
       <% }); %>
