@@ -10,6 +10,8 @@ const validateCampground = require('../utils/validateCampground');
 const catchAsync = require('../utils/catchAsync');
 const { isLoggedIn } = require('../middleware');
 const { isAuthor } = require('../middleware');
+const maptilerClient = require("@maptiler/client");
+maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
 
 // Index - list campgrounds
 router.get('/', catchAsync(async (req, res) => {
@@ -30,7 +32,15 @@ router.post('/', isLoggedIn, upload.array('image'), catchAsync(async (req, res) 
   if (errors.length) {
     return res.status(400).render('campgrounds/new', { errors, campground: campgroundData });
   }
+  const geoData = await maptilerClient.geocoding.forward(req.body.campground.location, { limit: 1 });
+  // console.log(geoData);
+  if (!geoData.features?.length) {
+    req.flash('error', 'Could not geocode that location. Please try again and enter a valid location.');
+    return res.redirect('/campgrounds/new');
+  }
   const campground = new Campground(campgroundData);
+  campground.geometry = geoData.features[0].geometry;
+  campground.location = geoData.features[0].place_name;
   campground.author = req.user._id;
   if (req.files && req.files.length) {
     campground.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
@@ -83,6 +93,16 @@ router.put('/:id', isLoggedIn, isAuthor, upload.array('image'), catchAsync(async
 
     console.log('req.files:', req.files);
     const campgroundData = req.body.campground || req.body;
+    const { id } = req.params;
+    // console.log(req.body);
+
+    // ↓↓↓ add this code ↓↓↓
+    const geoData = await maptilerClient.geocoding.forward(req.body.campground.location, { limit: 1 });
+    // console.log(geoData);
+    if (!geoData.features?.length) {
+      req.flash('error', 'Could not geocode that location. Please try again and enter a valid location.');
+      return res.redirect(`/campgrounds/${id}/edit`);
+    }
 
     const errors = validateCampground(campgroundData);
     if (errors.length) {
@@ -99,6 +119,8 @@ router.put('/:id', isLoggedIn, isAuthor, upload.array('image'), catchAsync(async
       throw new ExpressError('Campground not found', 404);
 
     }
+    result.geometry = geoData.features[0].geometry;
+    result.location = geoData.features[0].place_name;
     if (req.files && req.files.length) {
       // Delete every existing image from Cloudinary before replacing them
       if (result.images && result.images.length) {
