@@ -1,6 +1,9 @@
 require('dotenv').config();
 const express = require('express');
+const sanitizeV5 = require('./utils/mongoSanitizeV5');
+
 const app = express();
+app.set('query parser', 'extended');
 const ExpressError = require('./utils/ExpressError');
 const path = require('path');
 const session = require('express-session');
@@ -19,6 +22,7 @@ mongoose.connect('mongodb://localhost:27017/Bharat-Trails')
   .catch(err => {
     console.log('MongoDB connection error:', err);
   });
+mongoose.set('sanitizeFilter', true);
 const Campground = require('./models/campground');
 const Review = require('./models/review');
 const validateCampground = require('./utils/validateCampground');
@@ -31,6 +35,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(sanitizeV5({ replaceWith: '_' }));
 
 const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campground');

@@ -28,19 +28,19 @@ map.on('load', function () {
                 'step',
                 ['get', 'point_count'],
                 '#00BCD4',
-                10,
+                200,
                 '#2196F3',
-                30,
+                600,
                 '#3F51B5'
             ],
             'circle-radius': [
                 'step',
                 ['get', 'point_count'],
-                15,
-                10,
-                20,
+                25,
+                50,
                 30,
-                25
+                150,
+                35
             ]
         }
     });
